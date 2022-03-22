@@ -59,5 +59,61 @@ def print_results(comp):
         racer_string = Competitor.to_string(racer) + f"      => {racer['performance']}"
         print(racer_string)
 
-def save_results(comp):
-    with open("saved_results.csv", "w")
+# def save_results(comp):
+#     with open("saved_results.csv", "w")
+#.... Haven't comitted the end yet but done
+
+def select_competitor(competitors, check, criteria):
+    search_result = []
+    for competitor in competitors.values():
+         if check(competitor):
+             search_result.append(competitor, criteria)
+    return search_result
+
+def check_year(competitor, year):
+    if competitor['birth_date'].endswith(year):
+        return True
+    return False
+
+def check_sex(competitor, sex):
+    if competitor['sex'] == sex:
+        return True
+    return False
+
+def select_comp_by_sex(competitors, sex):
+    search_result = []
+    check = lambda comp: comp['sex'] == sex
+    for competitor in competitors.values():
+        if check(competitor):
+            search_result.append(competitor)
+    return search_result
+
+def select_comp_by_birth_year(competitors, year):
+    search_result = []
+    check = lambda comp: comp['birth_date'].endswith(year)
+    for competitor in competitors.values():
+        if check(competitor):
+            search_result.append(competitor)
+    return search_result
+
+def sort_competitors(dico_comp, sort_relation):
+    comp_list = [competitor for competitor in dico_comp.values()]
+    for i in range(1, len(comp_list)):
+        j = i - 1
+        while j >=0 and sort_relation(comp_list[i], comp_list[j]):
+            comp_list[j+1] = comp_list[j]
+            j -= 1
+        comp_list[j+1] = comp_list[i]
+    return comp_list
+
+def sort_by_last_name(competitor1, competitor2):
+    return competitor1['last_name'] < competitor2['last_name']
+
+def sort_by_perf(competitor1, competitor2):
+    if competitor2['performance'] == None or competitor1['performance'] < competitor2['performance']:
+        return True
+    return False
+
+def sort_with_lambda(competitors, criteria):
+    sorted_competitors = [competitor for competitor in competitors.values()]
+    return sorted_competitors.sort(key=lambda comp: comp[criteria])
