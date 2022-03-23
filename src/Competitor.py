@@ -171,4 +171,3 @@ def sort_by_competitors_by_performance(dico_comp):
 if __name__ == '__main__':
     pass    
 
-

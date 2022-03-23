@@ -15,7 +15,6 @@ def read_competitors(file_path):
             bib += 1
     return dico_part
 
-
 def show_competitors(comp):
     for competitor in comp.keys():
         print(Competitor.to_string(comp[competitor]))
@@ -68,6 +67,7 @@ def save_results(comp):
             competitor[0] = str(competitor[0]) #prevent error while join (with bib_num being an integer)
             to_write = ";".join(competitor[:3]) + " " + competitor[5] + "\n"
             saved_results.write(to_write)
+
 
 def select_competitor(competitors, check, criteria):
     search_result = []
