@@ -6,7 +6,7 @@ def create(h, m, s):
         return {
             "h": h,
             "m": m,
-            "s": s,
+            "s": s
         }
     return "Format incorrect"
 
@@ -26,3 +26,6 @@ def compare(time_1, time_2):
          - datetime.time(int(time_2[0]), int(time_2[1]), int(time_2[2]))
     
     return diff.total_seconds()
+
+def to_string(time):
+    return(f"{time['h']}h{time['m']}m{time['s']}s")
