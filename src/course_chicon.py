@@ -41,20 +41,18 @@ def read_performances(file_path):
         for line in final_perf:
             split_line = line.strip("\n")
             split_line = split_line.split(';')
-
-            dico_perf[int(split_line[0])] = split_line[1] + "h" + split_line[2] + "m" + split_line[3] + "s"
+            dico_perf[int(split_line[0])] = Time.create(split_line[1], split_line[2], split_line[3])
         return dico_perf
 
 def merge_performances(dico_comp, dico_perf):
-    print(dico_perf.items())
     for perf in list(dico_perf.items()):
         for match_bib in dico_comp.keys():
             if str(perf[0]) in match_bib:
                 dico_comp[match_bib]['performance'] = perf[1]
     return dico_comp
 
-def print_results(comp):
-    for racer in comp:
+def print_results(dict_comp):
+    for racer in dict_comp.values():
         racer_string = Competitor.to_string(racer) + f"      => {racer['performance']}"
         print(racer_string)
 

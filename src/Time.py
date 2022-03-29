@@ -1,4 +1,3 @@
-import csv
 import datetime
 
 def create(h, m, s):
@@ -25,7 +24,7 @@ def compare(time_1, time_2):
     diff = datetime.time(int(time_1[0]) , int(time_1[1]), int(time_1[2]))\
          - datetime.time(int(time_2[0]), int(time_2[1]), int(time_2[2]))
     
-    return diff.total_seconds()
+    return diff
 
 def to_string(time):
     return(f"{time['h']}h{time['m']}m{time['s']}s")

@@ -161,7 +161,7 @@ def sort_by_competitors_by_performance(dico_comp):
         if perf == None:
             comp_list.append(comp_list.pop(comp_list[i]))
             continue
-        while j >=0 and Time.compare(perf, comp_list[j]['performance']):
+        while j >=0 and Time.compare(perf, comp_list[j]['performance']) < 0:
             comp_list[j+1] = comp_list[j]
             j -= 1
         comp_list[j+1] = comp_list[i]
@@ -170,4 +170,3 @@ def sort_by_competitors_by_performance(dico_comp):
 
 if __name__ == '__main__':
     pass    
-
