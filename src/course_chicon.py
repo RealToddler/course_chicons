@@ -33,7 +33,7 @@ def read_competitors(fileName):
     return participantsDict
 
 
-# 4 - MANIPUALTIONS DU DICTIONNAIRE
+# 4 - MANIPULATIONS DU DICTIONNAIRE
 
 # 4.1 - Affichage
 # REFACTO : DONE, WORKING : TRUE, DOCSTRING : DONE, COMMENT : DONE
