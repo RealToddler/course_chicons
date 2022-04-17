@@ -100,7 +100,6 @@ def get_performance (comp):
     """
     return comp['performance']
 
-
 def get_sex (comp):
     """
 
@@ -135,40 +134,73 @@ def to_string(competitor):
                                            get_sex(competitor),get_birthdate(competitor))
 
 
-def compare_last_name(comp1, comp2):
-    return comp1['last_name'] < comp2['last_name']
+# 6 - TRIS
 
-def sort_by_competitors_by_last_name(dico_comp):
-    lname_list = []
-    for key in dico_comp.keys():
-        lname_list.append(dico_comp[key]['last_name'])
-    for i in range(1, len(lname_list)):
-        lname = lname_list[i]
+# REFACTO : DONE, WORKING : TRUE, DOCSTRING : DONE, COMMENT : DONE
+def compare_last_name(competitor1, competitor2):
+    """
+    This function returns True if the first competitor's last name appears 
+    after the name of the second competitor's last name  in alphabetical order.
+    compare_last_name() admit two args:
+    - competitor1 (type dict) = > first competitor's object.
+    - competitor2 (type dict) = > second competitor's object.
+    """
+    return competitor1['last_name'] < competitor2['last_name']
+
+
+# REFACTO : DONE, WORKING : TRUE, DOCSTRING : DONE, COMMENT : DONE
+def sort_competitors_by_last_name(competitorsDict):
+    """
+    This function sorts the competitors' dict alphabetically on the competitors' last names 
+    and returns it as a list.
+    sort_competitors_by_last_name() only admit one arg:
+    - competitorsDict (type dict) => dict that contains every competitors' data.
+    """
+    # creating a list of every competitors to sort them using a sort by insertion algorithm
+    competitorsList = [competitorsDict[competitor] for competitor in competitorsDict]
+    # sort by insertion
+    for i in range(1, len(competitorsList)):
+        lastName = competitorsList[i]
         j = i - 1
-        while j >=0 and compare_last_name(lname, lname_list[j]):
-            lname_list[j+1] = lname_list[j]
+        while j >= 0 and compare_last_name(lastName, competitorsList[j]):
+            competitorsList[j + 1] = competitorsList[j]
             j -= 1
-        lname_list[j+1] = lname
-    return lname_list
+        competitorsList[j + 1] = lastName
+    return competitorsList
 
-def sort_by_competitors_by_performance(dico_comp):
-    comp_list = []
-    for key in dico_comp.keys():
-        comp_list.append(dico_comp[key])
-    for i in range(1, len(comp_list)):
-        perf = comp_list[i]['performance']
+
+# REFACTO : DONE, WORKING : TRUE, DOCSTRING : DONE, COMMENT : DONE
+def sort_competitors_by_performance(competitorsDict):
+    """
+    This function sorts the competitors' dict on the competitors' performances and returns it as a list.
+    Competitors performance-less are sorted alphabetically at the end of the list.
+    sort_competitors_by_performance() only admit one arg:
+    - competitorsDict (type dict) => dict that contains every competitors' data.
+    """
+    # creating a list of every competitors with performances recorded
+    # to sort them using a sort by insertion algorithm
+    withPerf = [
+        competitorsDict[competitor] for competitor in competitorsDict \
+            if competitorsDict[competitor]['performance'] != None
+            ]
+    # creating a dict with all competitors performance-less in order to sort them alphabetically 
+    # using sort_competitors_by_last_name() function above
+    perfLess = {competitor: competitorsDict[competitor] for competitor in competitorsDict \
+            if competitorsDict[competitor]['performance'] == None
+            }
+    # sort by insertion on competitors with performances recorded
+    for i in range(1, len(withPerf)):
+        performance = withPerf[i]
         j = i - 1
-        if perf == None:
-            comp_list.append(comp_list.pop(comp_list[i]))
-            continue
-        while j >=0 and Time.compare(perf, comp_list[j]['performance']):
-            comp_list[j+1] = comp_list[j]
+        while j >= 0 and Time.compare(performance['performance'], withPerf[j]['performance'])[0] == '-':
+            withPerf[j + 1] = withPerf[j]
             j -= 1
-        comp_list[j+1] = comp_list[i]
-    return comp_list
-        
+        withPerf[j + 1] = performance
+    return withPerf + sort_competitors_by_last_name(perfLess) # concatenate competitors sorted by performances and
+                                                            # competitors performance-less sorted alphabetically 
+                                                            # at the end of the list
 
+
+    
 if __name__ == '__main__':
     pass    
-
-

@@ -1,4 +1,0 @@
-inscrits.csv: "data\inscrits.csv"
-perf.csv: "data\performances.csv"
-small_inscrits.csv: "data\small_inscrits.csv"
-small_perf.csv: "data\small_performances.csv"
